@@ -1,0 +1,109 @@
+<app-navbar></app-navbar>
+<h1 class="p-4 flex justify-center items-center text-3xl mt-0 mb-5 font-bold">{{submitButtonText}} Password</h1>
+<div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">
+    <form (ngSubmit)="onSubmit()" #form="ngForm">
+        <!-- Username -->
+        <div class="mb-4">
+            <label for="username" class="block text-gray-700 font-bold mb-2">Username</label>
+            <input type="text" id="username" name="username"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required [(ngModel)]="user.username" #username="ngModel" />
+            <div *ngIf="username.invalid && username.touched" class="text-red-500 text-sm">Username is required.</div>
+        </div>
+        <!-- Password -->
+        <div class="mb-4">
+            <label for="password" class="block text-gray-700 font-bold mb-2">Password</label>
+            <div class="relative">
+                <input [type]="showPassword ? 'text' : 'password'" id="password" name="password"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    required [(ngModel)]="user.password" #password="ngModel" />
+                <button type="button" class="absolute inset-y-0 right-0 px-3 py-1 text-gray-500 focus:outline-none"
+                    (click)="togglePassword()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="w-6 h-6">
+                        <path
+                            [attr.d]="showPassword 
+                  ? 'M3.98 8.223C4.807 6.585 6.789 5 12 5s7.193 1.585 8.02 3.223M21 12c-.284.985-2.789 5-9 5s-8.716-4.015-9-5m9 0a3 3 0 100-6 3 3 0 000 6zM21 21l-6-6m0 0l-6-6' 
+                  : 'M15 12c-.585 2.121-2.986 3-4.486 3C8.514 15 6 13.121 6 12s2.514-3 4.514-3c1.5 0 3.901.879 4.486 3zM21 21L3 3'" />
+                    </svg>
+                </button>
+            </div>
+            <div *ngIf="password.invalid && password.touched" class="text-red-500 text-sm">Password is required.</div>
+        </div>
+
+        <!-- Category Dropdown -->
+        <div class="mb-4">
+            <label for="category" class="block text-gray-700 font-bold mb-2">Category</label>
+            <select id="category" name="category"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required [(ngModel)]="user.category" #category="ngModel">
+                <option value="" disabled>Select a category</option>
+                <option *ngFor="let cat of categories" [value]="cat.value">{{ cat.viewValue }}</option>
+            </select>
+            <div *ngIf="category.invalid && category.touched" class="text-red-500 text-sm">Category is required.</div>
+        </div>
+
+        <!-- App Dropdown -->
+        <div class="mb-4">
+            <label for="app" class="block text-gray-700 font-bold mb-2">App</label>
+            <select id="app" name="app"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required [(ngModel)]="user.app" #app="ngModel">
+                <option value="" disabled>Select an app</option>
+                <option *ngFor="let app of apps" [value]="app.value">{{ app.viewValue }}</option>
+            </select>
+            <div *ngIf="app.invalid && app.touched" class="text-red-500 text-sm">App is required.</div>
+        </div>
+
+        <!-- Save Button -->
+        <div class="flex items-center justify-between">
+            <button type="submit"
+                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                [disabled]="form.invalid">
+                {{submitButtonText}}
+            </button>
+            <button type="cancel" (click)="closeDialog()"
+                class="bg-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Cancel
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- Success Dialog -->
+<div *ngIf="showDialog" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
+    aria-modal="true">
+    <div class="flex items-center justify-center min-h-screen px-4 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+        <!-- Dialog panel -->
+        <div
+            class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                    <div
+                        class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
+                        <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                            Success
+                        </h3>
+                        <div class="mt-2">
+                            <p class="text-sm text-gray-500">{{successMessage}}!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button type="button" (click)="closeDialog()"
+                    class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
