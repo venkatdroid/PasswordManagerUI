@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { PasswordDetail } from './Model';
+import { UI } from './Model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,19 +16,19 @@ export class PasswordManagerService {
 
   getAllPasswords(){
 
-    let passwordDetails : PasswordDetail[] = [
-      { id: 1 , username: 'john_doe', encryptedPassword: 'Test123', decryptedPassword: '', category: 1, app: 1 },
-      { id: 2, username: 'jane_smith', encryptedPassword: 'Chotu@123', decryptedPassword: '', category: 2, app: 2 }
+    let passwordDetails : UI.PasswordDetail[] = [
+      { id: 1 , username: 'testuser@mytest.com', password: 'TXlQYXNzd29yZEAxMjM=',  category: "Work", app: "Outlook" },
+      { id: 2, username: 'testuser@mytest.com', password: 'TmV3UGFzc3dvcmRAMTIz',  category: "School", app: "Messenger" }
     ];
 
     return passwordDetails;
   }
 
-  createPassword(newPassword : PasswordDetail){
+  createPassword(newPassword : UI.PasswordDetail){
     //this.httpClient.post('url', newPassword);
   }
 
-  updatePassword(updatePassword: PasswordDetail){}
+  updatePassword(updatePassword: UI.PasswordDetail){}
 
   deletePassword(deletePasswordId: number){}
 

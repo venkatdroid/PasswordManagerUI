@@ -12,12 +12,26 @@ export class Captions {
 
 }
 
-export interface PasswordDetail 
-{
-    id : number;
-    category : number;
-    app: number;
+export namespace API {
+
+  export interface PasswordDetail {
+    id: number;
+    category: string;
+    app: string;
     username: string;
     encryptedPassword: string;
-    decryptedPassword: string;    
+    decryptedPassword: string;
+  }
 }
+
+
+export namespace UI {
+    
+    export interface PasswordDetail {
+      id: number;
+      category: string;
+      app: string;
+      username: string;
+      password: string;
+    }
+  }

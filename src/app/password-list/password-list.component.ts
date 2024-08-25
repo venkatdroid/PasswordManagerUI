@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { PasswordDetail } from '../Model';
+import { UI } from '../Model';
 import { PasswordManagerService } from '../password-manager.service';
 import { NavbarComponent } from "../navbar/navbar.component";
 
@@ -14,19 +14,15 @@ import { NavbarComponent } from "../navbar/navbar.component";
 })
 export class PasswordListComponent {
 
-  passwordDetails: PasswordDetail[] = [];
+  passwordDetails: UI.PasswordDetail[] = [];
   username: string = 'User';
 
   constructor(private router: Router,private service: PasswordManagerService){
     console.log('home data', history.state.data);
-    this.username = history.state.data.username;
+    if (history.state.username != undefined) {
+      this.username = history.state.data.username;
+    }
   }
-
-  // users = [
-  //   { username: 'john_doe', password: '********', category: 'Admin', app: 'Salesforce' },
-  //   { username: 'jane_smith', password: '********', category: 'User', app: 'Gmail' },
-  //   // Add more user data as needed
-  // ];
 
   ngOnInit(){
     this.passwordDetails = this.service.getAllPasswords();
@@ -35,18 +31,15 @@ export class PasswordListComponent {
   editPassword(user: any) {
     console.log('Edit user:', user);
     this.router.navigateByUrl('/edit-password', { state: { data: user } });
-    // Implement edit functionality here
   }
   
   deletePassword(user: any) {
     console.log('Delete user:', user);
     this.showDeleteDialog = true;
-    // Implement delete functionality here
   }
   
   decryptPassword(user: any) {
     console.log('Decrypt password for:', user);
-    // Implement decrypt functionality here
   }
 
   onCreateNewPasswordClick(){

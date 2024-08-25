@@ -41,13 +41,13 @@ export class SaveDataComponent {
   showPassword = false;
   showDialog = false;
 
-  categories = [ {id : 1, value: 1 ,viewValue: 'Work'},
-                 {id : 2, value: 2 ,viewValue: 'School'}, 
-                 {id : 3, value: 3 ,viewValue: 'Others'} ];
+  categories = [ {id : 1, value: 'Work' ,viewValue: 'Work'},
+                 {id : 2, value: 'School' ,viewValue: 'School'}, 
+                 {id : 3, value: 'Others',viewValue: 'Others'} ];
 
-  apps = [ {id : 1, value: 1 ,viewValue: 'Outlook'},
-           {id : 2, value: 2 ,viewValue: 'Messenger'}, 
-           {id : 3, value: 3 ,viewValue: 'Others'} ];
+  apps = [ {id : 1, value: 'Outlook' ,viewValue: 'Outlook'},
+           {id : 2, value: 'Messenger' ,viewValue: 'Messenger'}, 
+           {id : 3, value: 'Others' ,viewValue: 'Others'} ];
 
   togglePassword() {
     this.showPassword = !this.showPassword;
