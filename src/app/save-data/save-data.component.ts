@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Captions } from '../Model';
 import { NavbarComponent } from "../navbar/navbar.component";
+import { PasswordManagerService } from '../password-manager.service';
 
 @Component({
   selector: 'app-save-data',
@@ -18,7 +19,9 @@ export class SaveDataComponent {
 
   submitButtonText: string = Captions.btn_save;
   successMessage: string = Captions.msg_save_success;
-  constructor(private router: Router) {
+  passwordValue: string = "";
+
+  constructor(private router: Router, private service: PasswordManagerService) {
 
   }
 
@@ -31,12 +34,14 @@ export class SaveDataComponent {
     console.log('DATA ', history.state.data);
   }
 
-  user = {
+  passwordDetail = {
+    id: 0,
     username: '',
     password: '',
     category: '',
     app: ''
   };
+
 
   showPassword = false;
   showDialog = false;
@@ -51,11 +56,14 @@ export class SaveDataComponent {
 
   togglePassword() {
     this.showPassword = !this.showPassword;
+    if (this.showPassword) {
+      this.passwordValue = this.service.getDecryptedPasswordById(this.passwordDetail.id);
+    }
   }
 
   onSubmit() {
-    if (this.user.username && this.user.password && this.user.category && this.user.app) {
-      console.log('Form data:', this.user);
+    if (this.passwordDetail.username && this.passwordDetail.password && this.passwordDetail.category && this.passwordDetail.app) {
+      console.log('Form data:', this.passwordDetail);
       this.showDialog = true;      
     }
   }
@@ -68,10 +76,17 @@ export class SaveDataComponent {
   setEditValue(value: any){
     this.submitButtonText = Captions.btn_edit;
     this.successMessage = Captions.msg_edit_succcess;
-    this.user.username = value.username;
-    this.user.password = value.password;
-    this.user.app = value.app;
-    this.user.category = value.category;
+    this.setPasswordDetailValue(value);
+  }
+
+  setPasswordDetailValue(value: any)
+  {
+    this.passwordDetail.id = value.id;
+    this.passwordDetail.username = value.username;
+    this.passwordDetail.password = value.password;
+    this.passwordValue = value.password;
+    this.passwordDetail.app = value.app;
+    this.passwordDetail.category = value.category;
   }
 }
 

@@ -14,14 +14,29 @@ export class PasswordManagerService {
 
   }
 
+  passwordDetails : UI.PasswordDetail[] = [
+    { id: 1 , username: 'testuser@mytest.com', password: 'TXlQYXNzd29yZEAxMjM=',  category: "Work", app: "Outlook" },
+    { id: 2, username: 'testuser@mytest.com', password: 'TmV3UGFzc3dvcmRAMTIz',  category: "School", app: "Messenger" }
+  ];
+
   getAllPasswords(){
 
-    let passwordDetails : UI.PasswordDetail[] = [
-      { id: 1 , username: 'testuser@mytest.com', password: 'TXlQYXNzd29yZEAxMjM=',  category: "Work", app: "Outlook" },
-      { id: 2, username: 'testuser@mytest.com', password: 'TmV3UGFzc3dvcmRAMTIz',  category: "School", app: "Messenger" }
-    ];
+    // let passwordDetails : UI.PasswordDetail[] = [
+    //   { id: 1 , username: 'testuser@mytest.com', password: 'TXlQYXNzd29yZEAxMjM=',  category: "Work", app: "Outlook" },
+    //   { id: 2, username: 'testuser@mytest.com', password: 'TmV3UGFzc3dvcmRAMTIz',  category: "School", app: "Messenger" }
+    // ];
 
-    return passwordDetails;
+    return this.passwordDetails;
+  }
+
+  getDecryptedPasswordById(id : number)
+  {
+    //let password = need to make api request;
+    let passwordDetail = this.passwordDetails.find(x => x.id == id);
+    let decryptedPassword = passwordDetail?.password ?? "";
+    if (passwordDetail != undefined) 
+       decryptedPassword = atob(passwordDetail?.password ?? "");
+    return decryptedPassword;
   }
 
   createPassword(newPassword : UI.PasswordDetail){
@@ -31,6 +46,7 @@ export class PasswordManagerService {
   updatePassword(updatePassword: UI.PasswordDetail){}
 
   deletePassword(deletePasswordId: number){}
+
 
   
 }

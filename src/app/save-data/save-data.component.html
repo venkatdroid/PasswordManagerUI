@@ -7,7 +7,7 @@
             <label for="username" class="block text-gray-700 font-bold mb-2">Username</label>
             <input type="text" id="username" name="username"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                required [(ngModel)]="user.username" #username="ngModel" />
+                required [(ngModel)]="passwordDetail.username" #username="ngModel" />
             <div *ngIf="username.invalid && username.touched" class="text-red-500 text-sm">Username is required.</div>
         </div>
         <!-- Password -->
@@ -16,16 +16,21 @@
             <div class="relative">
                 <input [type]="showPassword ? 'text' : 'password'" id="password" name="password"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    required [(ngModel)]="user.password" #password="ngModel" />
+                    required [(ngModel)]="passwordValue" title="passwordValue" #password="ngModel" />
                 <button type="button" class="absolute inset-y-0 right-0 px-3 py-1 text-gray-500 focus:outline-none"
                     (click)="togglePassword()">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                        class="w-6 h-6">
-                        <path
-                            [attr.d]="showPassword 
-                  ? 'M3.98 8.223C4.807 6.585 6.789 5 12 5s7.193 1.585 8.02 3.223M21 12c-.284.985-2.789 5-9 5s-8.716-4.015-9-5m9 0a3 3 0 100-6 3 3 0 000 6zM21 21l-6-6m0 0l-6-6' 
-                  : 'M15 12c-.585 2.121-2.986 3-4.486 3C8.514 15 6 13.121 6 12s2.514-3 4.514-3c1.5 0 3.901.879 4.486 3zM21 21L3 3'" />
+                    <svg *ngIf="showPassword" class="h-5 w-5 text-neutral-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                        <circle cx="12" cy="12" r="3" />
                     </svg>
+                    <svg *ngIf="!showPassword" class="h-5 w-5 text-neutral-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                        <line x1="1" y1="1" x2="23" y2="23" />
+                    </svg>
+
                 </button>
             </div>
             <div *ngIf="password.invalid && password.touched" class="text-red-500 text-sm">Password is required.</div>
@@ -36,7 +41,7 @@
             <label for="category" class="block text-gray-700 font-bold mb-2">Category</label>
             <select id="category" name="category"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                required [(ngModel)]="user.category" #category="ngModel">
+                required [(ngModel)]="passwordDetail.category" #category="ngModel">
                 <option value="" disabled>Select a category</option>
                 <option *ngFor="let cat of categories" [value]="cat.value">{{ cat.viewValue }}</option>
             </select>
@@ -48,7 +53,7 @@
             <label for="app" class="block text-gray-700 font-bold mb-2">App</label>
             <select id="app" name="app"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                required [(ngModel)]="user.app" #app="ngModel">
+                required [(ngModel)]="passwordDetail.app" #app="ngModel">
                 <option value="" disabled>Select an app</option>
                 <option *ngFor="let app of apps" [value]="app.value">{{ app.viewValue }}</option>
             </select>
