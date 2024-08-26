@@ -12,26 +12,26 @@ export class Captions {
 
 }
 
-export namespace API {
+export class Routes 
+{
+  static createPassword = "/PasswordManager";  
+  static updatePassword = "/PasswordManager/";  
+  static deletePassword = "/PasswordManager/";
+  static getAllPasswords =  "/PasswordManager/GetAllPasswords";
+  static getPasswordDetailsById = "/PasswordManager/";
+  static getDecryptedPasswordDetailsById = "/PasswordManager/DecryptedPasswordDetail"
 
-  export interface PasswordDetail {
-    id: number;
-    category: string;
-    app: string;
-    username: string;
-    encryptedPassword: string;
-    decryptedPassword: string;
-  }
 }
 
+export interface PasswordDetail {
+  id: number;
+  category: string;
+  app: string;
+  username: string;
+  password: string;
+}
 
-export namespace UI {
-    
-    export interface PasswordDetail {
-      id: number;
-      category: string;
-      app: string;
-      username: string;
-      password: string;
-    }
-  }
+export interface DecryptedPasswordDetail extends PasswordDetail {
+
+  decryptedPasswordValue: string;
+}
